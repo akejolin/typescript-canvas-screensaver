@@ -1,4 +1,4 @@
-import {State} from './engine.types'
+import {State, Iposition} from './engine.types'
 
 export interface ParticleProps {
   ww: number;
@@ -22,19 +22,13 @@ export default class Particle {
   accX: number;
   accY: number;
   friction: number;
-  dest: {
-    x : number,
-    y: number
-  };
-  originPosition: {
-    x : number,
-    y: number
-  };
+  dest: Iposition;
+  originPosition: Iposition;
   color: string;
   radius: number;
   radiusRef: number;
   grow: number;
-  delete: Boolean;
+  delete: boolean;
 
   constructor(props: ParticleProps) {
 
@@ -42,12 +36,12 @@ export default class Particle {
   this.y = Math.random() * props.wh;
 
   this.dest = {
-    x : props.x,
+    x: props.x,
     y: props.y
   };
 
     this.originPosition = {
-      x : props.x,
+      x: props.x,
       y: props.y
     };
 
@@ -64,7 +58,7 @@ export default class Particle {
     this.delete = false
   }
 
-  destroy(byWho=null) {
+  destroy() {
     this.delete = true;
   }
   delayedDestroy(milisec: number) {

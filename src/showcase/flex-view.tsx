@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 /**
  * A FlexView component will output a div with preset styles of flex display.
@@ -15,14 +14,7 @@ import PropTypes from 'prop-types'
      * Shortcut to set the flexDirection style property
      */
     row?: boolean | false,
-    /**
-     * Type of elemenet to output, ex div, section, header, span, etc.
-     */
-    tagName?: string | 'div',
 }
-
-
-
 
 export const FlexView = (props: ComponentProps) => {
   const styles = {
@@ -64,18 +56,15 @@ export const FlexView = (props: ComponentProps) => {
       },
     }
   }
-  const TagName = props.tagName
   let setProps = {...props}
   setProps.style = outputStyles
   delete setProps.row
-  delete setProps.tagName
-  
+
   return (
     <div {...setProps}>
       {props.children}
     </div>
   )
-  
 }
 
 

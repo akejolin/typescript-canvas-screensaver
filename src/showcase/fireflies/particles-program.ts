@@ -6,9 +6,6 @@ import {
 } from './interval-handler'
 import {State} from './engine.types'
 
-
-
-
 const wait = (ms:number) => new Promise<void>(
   resolve => setTimeout(() => {
     clearTimeout(this);
@@ -64,11 +61,11 @@ export default class ParticlesProgram {
   }
   // ---------------------------------------------------
   getFont(width:number) {
-    const fontBase = 1000
-    const fontSize = 200
-    var ratio = fontSize / fontBase   // calc ratio
-    var size = width * ratio   // get font size based on current width
-    return (size | 0) + 'px helvetica' // set font
+    const fontBase = 1000;
+    const fontSize = 200;
+    var ratio = fontSize / fontBase;
+    var size = width * ratio;
+    return (size | 0) + 'px helvetica';
   }
   // ---------------------------------------------------
   async drawText(state: State, text:string) {
@@ -149,13 +146,14 @@ export default class ParticlesProgram {
     let i = preparticles.length
     let maxdelay = 8000
 
+    const loopiteration = (i:number): void => {
+      particles.push(preparticles[i])
+    }
 
     while (i > 0) {
       i--
       maxdelay = maxdelay > 0 ? maxdelay - 1 : 0
-      this.delay(randomNumBetween(0, maxdelay), () => {
-        particles.push(preparticles[i])
-      })
+      this.delay(randomNumBetween(0, maxdelay), loopiteration(i))
     }
 
     wait(10000).then(() => {
@@ -168,7 +166,6 @@ export default class ParticlesProgram {
     let { particles } = this
     particles = shuffle(particles)
     let pi = particles.length
-    
     let maxdelay = 2000
 
     const promiseMove = (i:number, d:number) => new Promise<void>(resolve => {
@@ -193,17 +190,7 @@ export default class ParticlesProgram {
       await wait(500)
       this.init(state)
     })
-
-    // ToDo: something new should happen here
-    /*
-
-      this.init(state)
-
-    */
-
   }
-
-
   // -----------------------------------------------------
   deleteAll(group:string) {
     const { particles } = this
@@ -215,7 +202,7 @@ export default class ParticlesProgram {
   }
 
   // ---------------------------------------------------
-  delay(ms: number, callback: Function) {
+  delay(ms: number, callback: any): void {
     setTimeout(callback(), ms)
   }
   // ---------------------------------------------------

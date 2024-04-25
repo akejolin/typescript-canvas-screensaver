@@ -1,31 +1,20 @@
-import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
-
+import React from 'react';
 
 import ParticlesProgram from './particles-program'
+import Particle from './particle';
 import {
   clearAllIntervals,
 } from './interval-handler'
 import FlexView from '../flex-view'
 import { randomNumBetween } from './helpers'
 
-import {CanvasItem, State} from './engine.types'
-
-
-export interface CanvasItemGroups {
-  [key: string]: CanvasItem[]
-}
+import {State} from './engine.types'
 
 export interface Iprops {}
-export interface Particles {
-
-}
 
 class _cls extends React.Component {
-
   canvas;
-
-  particles: CanvasItem[];
+  particles: Particle[];
   emojis: string[];
   state: State;
 
@@ -133,12 +122,10 @@ class _cls extends React.Component {
   }
 
   // -----------------------------------------------------
-  updateObjects(items:CanvasItem[]) {
+  updateObjects(items:Particle[]) {
     let index = 0;
-
     for (let item of items) {
       if (item.delete) {
-        //this[group].splice(index, 1)
         this.particles.splice(index, 1);
       } else {
         this.particles[index].render(this.state)
